@@ -23,6 +23,7 @@ function App(): JSX.Element {
   }, [allPastes, baseUrl]);
   return (
     <>
+      <p>The app is running! Connceted to heroku.</p>
       {allPastes.map((el) => (
         <SinglePaste element={el} key={el.id} />
       ))}
