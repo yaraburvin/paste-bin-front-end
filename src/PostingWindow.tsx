@@ -40,6 +40,7 @@ export function PostingWindow({
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="Paste your text here."
+        rows={25}
       >
         {" "}
       </textarea>

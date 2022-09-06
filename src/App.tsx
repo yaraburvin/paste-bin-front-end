@@ -26,19 +26,30 @@ function App(): JSX.Element {
   }, [allPastes]);
   return (
     <>
-      <section className="submission-field">
-        <PostingWindow allPastes={allPastes} setAllPastes={setAllPastes} />
-      </section>
-      <p>The app is running! Connceted to heroku.</p>
-      {allPastes.map((el) => (
-        <div onClick={() => setSelectedId(el.id)} key={el.id}>
-          {" "}
-          <SinglePaste element={el} />{" "}
-        </div>
-      ))}
-      {selectedId !== null && (
-        <SelectedPaste selectedId={selectedId} setSelectedId={setSelectedId} />
-      )}
+      <header>
+        <h1>Paste Bin App</h1>
+      </header>
+      <main className="wrapper">
+        <section className="submission-field">
+          <PostingWindow allPastes={allPastes} setAllPastes={setAllPastes} />
+        </section>
+        <section className="paste-list">
+          {allPastes.map((el) => (
+            <div onClick={() => setSelectedId(el.id)} key={el.id}>
+              {" "}
+              <SinglePaste element={el} />{" "}
+            </div>
+          ))}
+        </section>
+        <section className="selected-paste">
+          {selectedId !== null && (
+            <SelectedPaste
+              selectedId={selectedId}
+              setSelectedId={setSelectedId}
+            />
+          )}
+        </section>
+      </main>
     </>
   );
 }

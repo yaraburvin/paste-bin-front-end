@@ -29,10 +29,10 @@ export function SelectedPaste({
     <div>
       {currentPaste !== null && (
         <div>
+          <button onClick={() => setSelectedId(null)}>X</button>
           <h3>{currentPaste.title} </h3>
           <p>{currentPaste.content}</p>
           <div>{currentPaste.date}</div>
-          <button onClick={() => setSelectedId(null)}>X</button>
         </div>
       )}
     </div>
