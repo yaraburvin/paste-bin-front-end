@@ -10,7 +10,6 @@ export const baseUrl =
     : "http://localhost:4000";
 
 function App(): JSX.Element {
-
   const [allPastes, setAllPastes] = useState<IPaste[]>([]);
   useEffect(() => {
     try {
@@ -26,7 +25,7 @@ function App(): JSX.Element {
   return (
     <>
       <section className="submission-field">
-        <PostingWindow allPastes={allPastes} setAllPastes={setAllPastes}/>
+        <PostingWindow allPastes={allPastes} setAllPastes={setAllPastes} />
       </section>
       <p>The app is running! Connceted to heroku.</p>
       {allPastes.map((el) => (
