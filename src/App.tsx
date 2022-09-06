@@ -3,6 +3,7 @@ import axios from "axios";
 import { IPaste } from "./utils/types";
 import { SinglePaste } from "./SinglePaste";
 import { PostingWindow } from "./PostingWindow";
+import { SelectedPaste } from "./SelectedPaste";
 
 export const baseUrl =
   process.env.NODE_ENV === "production"
@@ -11,6 +12,7 @@ export const baseUrl =
 
 function App(): JSX.Element {
   const [allPastes, setAllPastes] = useState<IPaste[]>([]);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   useEffect(() => {
     try {
       const getPastes = async () => {
@@ -29,8 +31,14 @@ function App(): JSX.Element {
       </section>
       <p>The app is running! Connceted to heroku.</p>
       {allPastes.map((el) => (
-        <SinglePaste element={el} key={el.id} />
+        <div onClick={() => setSelectedId(el.id)} key={el.id}>
+          {" "}
+          <SinglePaste element={el} />{" "}
+        </div>
       ))}
+      {selectedId !== null && (
+        <SelectedPaste selectedId={selectedId} setSelectedId={setSelectedId} />
+      )}
     </>
   );
 }
