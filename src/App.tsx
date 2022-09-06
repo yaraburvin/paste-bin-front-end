@@ -7,7 +7,7 @@ import { SelectedPaste } from "./SelectedPaste";
 
 export const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://paste-bin-yara-burvin.herokuapp.com/"
+    ? "https://paste-bin-yara-burvin.herokuapp.com"
     : "http://localhost:4000";
 
 function App(): JSX.Element {
