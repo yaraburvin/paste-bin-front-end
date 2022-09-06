@@ -1,5 +1,12 @@
 .singlePaste {
     border: 1px solid black;
-    margin: 40px auto;
+    margin: 40px 0;
+    width: 45%;
 }
 
+.singlePaste p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
