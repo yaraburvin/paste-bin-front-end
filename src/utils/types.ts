@@ -4,3 +4,10 @@ export interface IPaste {
   content: string;
   date: string;
 }
+
+export interface IComment {
+  id: number;
+  username: string;
+  comment: string;
+  paste_id: number;
+}

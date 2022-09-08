@@ -1,4 +1,4 @@
-export function dateFormat(date: string) : string {
+export function dateFormat(date: string): string {
   return date.split("T")[0];
 }
 

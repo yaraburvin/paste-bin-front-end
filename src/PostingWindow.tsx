@@ -13,6 +13,17 @@ export function PostingWindow({
 }: Iprops): JSX.Element {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const RerenderWithUpdate = () => {
+    try {
+      const getPastes = async () => {
+        const response = await axios.get(baseUrl + "/pastes/");
+        setAllPastes(response.data);
+      };
+      getPastes();
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const handleSubmit = async () => {
     try {
       const response: IPaste = await axios.post(baseUrl + "/pastes/", {
@@ -20,7 +31,7 @@ export function PostingWindow({
         content: content,
       });
       console.log(response);
-      setAllPastes([response, ...allPastes]);
+      RerenderWithUpdate();
       setTitle("");
       setContent("");
     } catch (error) {

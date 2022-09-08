@@ -23,7 +23,7 @@ function App(): JSX.Element {
     } catch (err) {
       console.error(err);
     }
-  }, [allPastes]);
+  }, []);
   return (
     <>
       <header>
@@ -46,6 +46,7 @@ function App(): JSX.Element {
             <SelectedPaste
               selectedId={selectedId}
               setSelectedId={setSelectedId}
+              setAllPastes={setAllPastes}
             />
           )}
         </section>
