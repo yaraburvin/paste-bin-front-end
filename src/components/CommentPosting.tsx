@@ -1,47 +1,32 @@
 import axios from "axios";
 import { useState } from "react";
-import { baseUrl } from "./App";
-import { IComment } from "./utils/types";
+import { baseUrl } from "../App";
 
 interface ICommentPost {
   pasteId: number;
-  setAllComments: React.Dispatch<React.SetStateAction<IComment[]>>;
-  setWriteComment: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenCommentPosting: React.Dispatch<React.SetStateAction<boolean>>;
+  updateAllComments: number;
+  setUpdateAllComments: React.Dispatch<React.SetStateAction<number>>;
 }
 export function CommentPosting({
   pasteId,
-  setAllComments,
-  setWriteComment,
+  setOpenCommentPosting,
+  updateAllComments,
+  setUpdateAllComments,
 }: ICommentPost): JSX.Element {
   const [username, setUsername] = useState<string>("");
   const [comment, setComment] = useState("");
-  const RerenderWithUpdate = () => {
-    try {
-      const getComments = async () => {
-        const response = await axios.get(
-          baseUrl + `/pastes/${pasteId}/comments`
-        );
-        setAllComments(response.data);
-      };
-      getComments();
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        baseUrl + `/pastes/${pasteId}/comments`,
-        {
-          username: username,
-          comment: comment,
-        }
-      );
-      console.log(response);
-      RerenderWithUpdate();
+      await axios.post(baseUrl + `/pastes/${pasteId}/comments`, {
+        username: username,
+        comment: comment,
+      });
+      setUpdateAllComments(updateAllComments + 1);
       setUsername("");
       setComment("");
-      setWriteComment(false);
+      setOpenCommentPosting(false);
     } catch (error) {
       console.error(error);
     }
@@ -64,7 +49,7 @@ export function CommentPosting({
         {" "}
       </textarea>
       <button onClick={() => handleSubmit()}>Submit</button>
-      <button onClick={() => setWriteComment(false)}>close</button>
+      <button onClick={() => setOpenCommentPosting(false)}>close</button>
     </div>
   );
 }

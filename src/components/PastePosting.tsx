@@ -1,29 +1,19 @@
 import axios from "axios";
 import { useState } from "react";
-import { baseUrl } from "./App";
-import { IPaste } from "./utils/types";
+import { baseUrl } from "../App";
+import { IPaste } from "../utils/interfaces";
 
 interface Iprops {
-  allPastes: IPaste[];
-  setAllPastes: React.Dispatch<React.SetStateAction<IPaste[]>>;
+  updateAllPastes: number;
+  setUpdateAllPastes: React.Dispatch<React.SetStateAction<number>>;
 }
-export function PostingWindow({
-  allPastes,
-  setAllPastes,
+export function PastePosting({
+  updateAllPastes,
+  setUpdateAllPastes,
 }: Iprops): JSX.Element {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const RerenderWithUpdate = () => {
-    try {
-      const getPastes = async () => {
-        const response = await axios.get(baseUrl + "/pastes/");
-        setAllPastes(response.data);
-      };
-      getPastes();
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
   const handleSubmit = async () => {
     try {
       const response: IPaste = await axios.post(baseUrl + "/pastes/", {
@@ -31,7 +21,7 @@ export function PostingWindow({
         content: content,
       });
       console.log(response);
-      RerenderWithUpdate();
+      setUpdateAllPastes(updateAllPastes + 1);
       setTitle("");
       setContent("");
     } catch (error) {

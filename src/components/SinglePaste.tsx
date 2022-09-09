@@ -1,5 +1,5 @@
-import { dateFormat } from "./utils/dateFormat";
-import { IPaste } from "./utils/types";
+import { dateFormat } from "../utils/dateFormat";
+import { IPaste } from "../utils/interfaces";
 
 interface Iprops {
   element: IPaste;

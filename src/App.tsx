@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { IPaste } from "./utils/types";
-import { SinglePaste } from "./SinglePaste";
-import { PostingWindow } from "./PostingWindow";
-import { SelectedPaste } from "./SelectedPaste";
+import { IPaste } from "./utils/interfaces";
+import { SinglePaste } from "./components/SinglePaste";
+import { PastePosting } from "./components/PastePosting";
+import { SelectedPaste } from "./components/SelectedPaste";
 
 export const baseUrl =
   process.env.NODE_ENV === "production"
@@ -12,7 +12,8 @@ export const baseUrl =
 
 function App(): JSX.Element {
   const [allPastes, setAllPastes] = useState<IPaste[]>([]);
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedPasteId, setSelectedPasteId] = useState<number | null>(null);
+  const [updateAllPastes, setUpdateAllPastes] = useState<number>(0);
   useEffect(() => {
     try {
       const getPastes = async () => {
@@ -23,7 +24,7 @@ function App(): JSX.Element {
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [updateAllPastes]);
   return (
     <>
       <header>
@@ -31,22 +32,26 @@ function App(): JSX.Element {
       </header>
       <main className="wrapper">
         <section className="submission-field">
-          <PostingWindow allPastes={allPastes} setAllPastes={setAllPastes} />
+          <PastePosting
+            updateAllPastes={updateAllPastes}
+            setUpdateAllPastes={setUpdateAllPastes}
+          />
         </section>
         <section className="paste-list">
           {allPastes.map((el) => (
-            <div onClick={() => setSelectedId(el.id)} key={el.id}>
+            <div onClick={() => setSelectedPasteId(el.id)} key={el.id}>
               {" "}
               <SinglePaste element={el} />{" "}
             </div>
           ))}
         </section>
         <section className="selected-paste">
-          {selectedId !== null && (
+          {selectedPasteId !== null && (
             <SelectedPaste
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
-              setAllPastes={setAllPastes}
+              selectedPasteId={selectedPasteId}
+              setSelectedPasteId={setSelectedPasteId}
+              updateAllPastes={updateAllPastes}
+              setUpdateAllPastes={setUpdateAllPastes}
             />
           )}
         </section>
